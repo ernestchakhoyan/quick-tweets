@@ -21,9 +21,10 @@ const MyApp = (props)  => {
   return (
       <React.Fragment>
         <Head>
-          <title>Haghtelu enq</title>
+          <title>Հաղթելու ենք</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
           <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Source+Sans+Pro&display=swap" rel="stylesheet" />
+          <link href="/static/favicon.ico" rel="icon" />
         </Head>
           <ThemeProvider theme={theme()}>
             <CssBaseline />

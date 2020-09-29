@@ -13,7 +13,7 @@ import twitterIcon from "@iconify/icons-mdi/twitter";
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
-        height: "calc(100vh - 60px)",
+        height: "calc(100vh - 150px)",
         justifyContent: "center",
         display: "flex",
         alignItems: "center"
@@ -35,13 +35,17 @@ const useStyles = makeStyles((theme) => ({
             width: 300,
         },
     },
+    image: {
+        width: 100,
+        height: 50
+    }
 }));
 
 function Index(props) {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Container style={{display: "flex", alignItems: "center", height: 30}}>
+            <Container style={{display: "flex", alignItems: "center", height: 30,  margin: "20px 15px"}}>
                 <span style={{display: "flex", marginRight: 10}}>
                     <ReportIcon color="primary"/>
                 </span>
@@ -50,8 +54,12 @@ function Index(props) {
                     color="primary"
                     className={classes.textField}
                 >
-                    This web site is created for quick retweets.  #haghteluENQ!
+                    Web site-ի նպատակն է` twitter-ում արագ retweet անելը: Բայց խնդրում ենք հաշվի առնել, որ բազմաթիվ retweet անելու դեպքում հնարավոր է twitter-ը արգելափակի ձեր account-ը;
                 </Typography>
+            </Container>
+            <Container style={{display: "flex", alignItems: "center",justifyContent: "center",marginTop: 30}}>
+                <img className={classes.image} src="/static/armenia.gif" alt="armenian flag" style={{marginRight: 10}}/>
+                <img className={classes.image} src="/static/artsakh.gif" alt="artsakh flag" />
             </Container>
             <Container
                 className={classes.containerRoot}
