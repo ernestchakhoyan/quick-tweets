@@ -1,15 +1,17 @@
 import React from "react";
 import {
     Button,
+    CircularProgress,
     Container,
     Grid,
     TextField,
     Typography
 } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import ReportIcon from '@material-ui/icons/Report';
+import ReportIcon from "@material-ui/icons/Report";
 import { Icon } from "@iconify/react";
 import twitterIcon from "@iconify/icons-mdi/twitter";
+import { Router } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
@@ -38,27 +40,43 @@ const useStyles = makeStyles((theme) => ({
     image: {
         width: 100,
         height: 50
+    },
+    loaderContainer: {
+        display: "flex",
+        height: "100vh",
+        justifyContent: "center",
+        alignItems: "center"
     }
 }));
 
-function Index(props) {
+function Index() {
     const classes = useStyles();
-    return (
+    const [ loading, setLoading ] = React.useState(false);
+
+    React.useEffect(() => {
+        Router.events.on("routeChangeStart", () => setLoading(true));
+        Router.events.on("routeChangeComplete", () => setLoading(false));
+        Router.events.on("routeChangeError", () => setLoading(false));
+    }, []);
+
+    return !loading ? (
         <React.Fragment>
-            <Container style={{display: "flex", alignItems: "center", height: 30,  margin: "20px 15px"}}>
-                <span style={{display: "flex", marginRight: 10}}>
-                    <ReportIcon color="primary"/>
+            <Container style={{ display: "flex", alignItems: "center", margin: "20px 15px" }}>
+                <span style={{ display: "flex", marginRight: 10 }}>
+                    <ReportIcon color="primary" />
                 </span>
                 <Typography
                     variant="h2"
                     color="primary"
                     className={classes.textField}
                 >
-                    Web site-ի նպատակն է` twitter-ում արագ retweet անելը: Բայց խնդրում ենք հաշվի առնել, որ բազմաթիվ retweet անելու դեպքում հնարավոր է twitter-ը արգելափակի ձեր account-ը;
+                    Website-ի նպատակը Twitter-ում retweet անելն ավտոմատացնելն է։ Կարեւոր է հաշվի առնել, որ կարճ
+                    ժամանակահատվածում շատ retweet անելու դեպքում հնարավոր է Twitter պրոֆիլի արգելափակում։
                 </Typography>
             </Container>
-            <Container style={{display: "flex", alignItems: "center",justifyContent: "center",marginTop: 30}}>
-                <img className={classes.image} src="/static/armenia.gif" alt="armenian flag" style={{marginRight: 10}}/>
+            <Container style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: 30 }}>
+                <img className={classes.image} src="/static/armenia.gif" alt="armenian flag"
+                     style={{ marginRight: 10 }} />
                 <img className={classes.image} src="/static/artsakh.gif" alt="artsakh flag" />
             </Container>
             <Container
@@ -100,6 +118,10 @@ function Index(props) {
                 </Grid>
             </Container>
         </React.Fragment>
+    ) : (
+        <Container className={classes.loaderContainer}>
+            <CircularProgress />
+        </Container>
     );
 }
 
