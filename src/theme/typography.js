@@ -1,33 +1,39 @@
 export default {
     fontFamily: 'Source Sans Pro, sans-serif',
     h1: {
+        fontFamily: 'Bebas Neue, cursive',
+        fontWeight: 500,
+        fontSize: '1.75',    // 28px
+        lineHeight: '20px'
+    },
+    h2: {
+        fontFamily: 'Bebas Neue, cursive',
         fontWeight: 500,
         fontSize: '1.375rem', // 22px
         lineHeight: '30px'
     },
-    h2: {
+    h3: {
+        fontFamily: 'Bebas Neue, cursive',
         fontWeight: 500,
         fontSize: '1.125rem', // 18px
         lineHeight: '24px'
     },
-    h3: {
+    h4: {
+        fontFamily: 'Bebas Neue, cursive',
         fontWeight: 500,
         fontSize: '1rem',    // 16px
         lineHeight: '22px'
     },
-    h4: {
+    h5: {
+        fontFamily: 'Bebas Neue, cursive',
         fontWeight: 500,
         fontSize: '0.875rem', // 14px
         lineHeight: '24px'
     },
-    h5: {
+    h6: {
+        fontFamily: 'Bebas Neue, cursive',
         fontWeight: 500,
         fontSize: '0.75rem', // 12px
-        lineHeight: '20px'
-    },
-    h6: {
-        fontWeight: 500,
-        fontSize: '0.625rem', // 10px
         lineHeight: '20px'
     },
     subtitle1: {

@@ -1,127 +1,101 @@
 import React from "react";
-import {
-    Button,
-    CircularProgress,
-    Container,
-    Grid,
-    TextField,
-    Typography
-} from "@material-ui/core";
+import Router from "next/router";
+import { isAuthorized } from "../utils/tools";
+import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import ReportIcon from "@material-ui/icons/Report";
-import { Icon } from "@iconify/react";
-import twitterIcon from "@iconify/icons-mdi/twitter";
-import { Router } from "next/router";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    containerRoot: {
-        height: "calc(100vh - 150px)",
-        justifyContent: "center",
-        display: "flex",
-        alignItems: "center"
-    },
-    textField: {
-        display: "flex",
-        alignItems: "center"
+    container: {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "height": "100vh",
+        "padding": theme.spacing(2)
     },
     gridRoot: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "height": "100%",
+        "width": "100%",
+        marginTop: theme.spacing(4)
     },
-    inputRoot: {
-        display: "flex",
-        flexDirection: "column",
-        "& > *": {
-            margin: theme.spacing(1),
-            width: 300,
-        },
+    fullWidth: {
+        width: "100%",
+        flexBasis: 0
     },
-    image: {
-        width: 100,
-        height: 50
-    },
-    loaderContainer: {
-        display: "flex",
-        height: "100vh",
-        justifyContent: "center",
-        alignItems: "center"
+    marginRight: {
+        marginRight: theme.spacing(2)
     }
 }));
 
 function Index() {
     const classes = useStyles();
-    const [ loading, setLoading ] = React.useState(false);
 
     React.useEffect(() => {
-        Router.events.on("routeChangeStart", () => setLoading(true));
-        Router.events.on("routeChangeComplete", () => setLoading(false));
-        Router.events.on("routeChangeError", () => setLoading(false));
+        if (!isAuthorized()) {
+            Router.push("/login");
+        }
     }, []);
 
-    return !loading ? (
-        <React.Fragment>
-            <Container style={{ display: "flex", alignItems: "center", margin: "20px 15px" }}>
-                <span style={{ display: "flex", marginRight: 10 }}>
-                    <ReportIcon color="primary" />
-                </span>
-                <Typography
-                    variant="h2"
-                    color="primary"
-                    className={classes.textField}
-                >
-                    Website-ի նպատակը Twitter-ում retweet անելն ավտոմատացնելն է։ Կարեւոր է հաշվի առնել, որ կարճ
-                    ժամանակահատվածում շատ retweet անելու դեպքում հնարավոր է Twitter պրոֆիլի արգելափակում։
-                </Typography>
-            </Container>
-            <Container style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: 30 }}>
-                <img className={classes.image} src="/static/armenia.gif" alt="armenian flag"
-                     style={{ marginRight: 10 }} />
-                <img className={classes.image} src="/static/artsakh.gif" alt="artsakh flag" />
-            </Container>
-            <Container
-                className={classes.containerRoot}
+    return (
+        <div className={classes.container}>
+            <Typography variant="h1" color="primary">
+                Post data
+            </Typography>
+            <Grid
+                className={classes.gridRoot}
+                xs={12}
+                md={6}
             >
-                <Grid className={classes.gridRoot}>
-                    <Typography
-                        variant="h1"
+                <Grid
+                    item xs={12}
+                    className={classes.fullWidth}
+                >
+                    <TextField
+                        classes={{root: classes.fullWidth}}
+                        variant="outlined"
+                        label="Link"
+                    />
+                </Grid>
+                <Grid
+                    item xs={12}
+                    className={classes.fullWidth}
+                >
+                    <TextField
+                        classes={{root: classes.fullWidth}}
+                        variant="outlined"
+                        label="Post body"
+                        multiline
+                        rowsMax={5}
+                    />
+                </Grid>
+                <Grid
+                    item xs={12}
+                    className={classes.fullWidth}
+                >
+                    <Button
+                        variant="outlined"
                         color="primary"
-                        className={classes.textField}
+                        disableRipple
+                        className={classes.marginRight}
                     >
-                        <span style={{ marginRight: 10 }}>Log in to Twitter</span>
-                        <Icon icon={twitterIcon} />
-                    </Typography>
-
-
-                    <form className={classes.inputRoot} noValidate autoComplete="off">
-                        <TextField
-                            id="outlined-basic"
-                            label="Username"
-                            variant="outlined"
-                        />
-                        <TextField
-                            id="outlined-basic"
-                            label="Password"
-                            variant="outlined"
-                            type="password"
-                        />
-                    </form>
-
+                        <span>Post</span>
+                    </Button>
 
                     <Button
                         variant="outlined"
                         color="primary"
                         disableRipple
                     >
-                        <span>Login</span>
+                        <span>Comment</span>
                     </Button>
                 </Grid>
-            </Container>
-        </React.Fragment>
-    ) : (
-        <Container className={classes.loaderContainer}>
-            <CircularProgress />
-        </Container>
+            </Grid>
+        </div>
     );
 }
 
