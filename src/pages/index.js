@@ -48,6 +48,7 @@ function Index() {
             </Typography>
             <Grid
                 className={classes.gridRoot}
+                item
                 xs={12}
                 md={6}
             >

@@ -80,7 +80,7 @@ function Index() {
                         color="primary"
                         className={classes.textField}
                     >
-                        <span style={{ marginRight: 10 }}>Log in to Twitter</span>
+                        <span style={{ marginRight: 10 }}>Log in</span>
                     </Typography>
 
 

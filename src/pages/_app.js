@@ -25,7 +25,7 @@ const MyApp = (props)  => {
         <Head>
           <title>Հաղթելու ենք</title>
           <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1" />
-          <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Source+Sans+Pro&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
           <link href="/static/favicon.ico" rel="icon" />
         </Head>
           <ThemeProvider theme={theme()}>
