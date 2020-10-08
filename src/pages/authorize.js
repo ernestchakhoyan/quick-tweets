@@ -73,7 +73,7 @@ function Authorize(props) {
                     authCallback={authHandler}
                     consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
                     consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
-                    callbackUrl="https://42635b497f80.ngrok.io/twitter"
+                    callbackUrl="https://quick-tweets.vercel.app/twitter"
                 />
             </Grid>
         </div>
