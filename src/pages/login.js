@@ -123,6 +123,13 @@ function Index() {
                     <div
                         className={`${classes.gridRoot} ${classes.marginBottom}`}
                     >
+                        <Typography
+                            variant="h2"
+                            color="textPrimary"
+                            className={classes.marginBottom}
+                        >
+                            Trusted twitter  accounts
+                        </Typography>
                         {
                             trustedUsers.map((item) => {
                                 return (
