@@ -4,6 +4,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Typography, Grid, Button } from "@material-ui/core";
 import facebookIcon from "@iconify/icons-mdi/facebook";
 import TwitterLogin from "react-twitter-login";
+import  Router from "next";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,7 @@ function Authorize(props) {
     }
 
     const authHandler = (err, data) => {
+        Router.push("/twitter");
         console.log(err, data);
     };
 
