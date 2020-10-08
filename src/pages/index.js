@@ -49,7 +49,7 @@ function Index() {
     return (
         <div className={classes.container}>
             <Typography variant="h1" color="primary">
-                Success!
+                Հաղթելու ենք!!!
             </Typography>
         </div>
     );
