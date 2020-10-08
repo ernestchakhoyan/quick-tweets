@@ -1,6 +1,8 @@
 import React from "react";
+import { Icon } from "@iconify/react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { Typography, Grid } from "@material-ui/core";
+import { Typography, Grid, Button } from "@material-ui/core";
+import facebookIcon from "@iconify/icons-mdi/facebook";
 import TwitterLogin from "react-twitter-login";
 
 
@@ -31,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
 
 function Authorize(props) {
     const classes = useStyles();
+
+    const facebookAuth = () => {
+        window.open("https://www.facebook.com/v8.0/dialog/oauth?client_id=774302380025936&redirect_uri=https://42635b497f80.ngrok.io&scope=user_posts&response_type=token")
+    }
+
+    const twitterAuth = () => {
+        window.open("https://api.twitter.com/oauth/authorize");
+    }
 
     const authHandler = (err, data) => {
         console.log(err, data);
