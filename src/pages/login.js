@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TwitterLogin from "react-twitter-login";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
@@ -86,7 +87,20 @@ function Index() {
     }, []);
 
     const authHandler = (err, data) => {
-        console.log(err, data);
+        console.log(data);
+
+        if(err || !data){
+            return;
+        }
+
+        // axios.post(
+        //     "https://prod-49.westus.logic.azure.com:443/workflows/a49ce00ad220400d83df1438fdb38d2a/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z2-yHmEYf8q5NSWRvWOjl5KC9bKyN4zOanpVqAkkDTU",
+        //     {
+        //         "userId": "1",
+        //         "twitterToken": "1",
+        //         "twitterSecret": "1"
+        //     }
+        // )
     };
 
     return !loading ? (
@@ -117,7 +131,7 @@ function Index() {
                             authCallback={authHandler}
                             consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
                             consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
-                            callbackUrl="https://42635b497f80.ngrok.io/twitter"
+                            callbackUrl="https://262e9983e64d.ngrok.io/twitter"
                         />
                     </Grid>
                     <div

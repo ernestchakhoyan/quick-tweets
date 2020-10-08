@@ -4,7 +4,6 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
-import TwitterLogin from "react-twitter-login";
 
 const useStyles = makeStyles((theme) => ({
     container: {
