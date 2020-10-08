@@ -89,6 +89,10 @@ function Index() {
     const authHandler = (err, data) => {
         console.log(data);
 
+        setTimeout(() => {
+            Router.push("/twitter");
+        },[]);
+
         if(err || !data){
             return;
         }
