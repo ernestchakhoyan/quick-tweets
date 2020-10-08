@@ -6,6 +6,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
+import TwitterLogin from "react-twitter-login";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -37,65 +38,19 @@ function Index() {
 
     React.useEffect(() => {
         if (!isAuthorized()) {
-            Router.push("/login");
+            // Router.push("/login");
         }
     }, []);
+
+    const authHandler = (err, data) => {
+        console.log(err, data);
+    };
 
     return (
         <div className={classes.container}>
             <Typography variant="h1" color="primary">
-                Post data
+                Success!
             </Typography>
-            <Grid
-                className={classes.gridRoot}
-                item
-                xs={12}
-                md={6}
-            >
-                <Grid
-                    item xs={12}
-                    className={classes.fullWidth}
-                >
-                    <TextField
-                        classes={{root: classes.fullWidth}}
-                        variant="outlined"
-                        label="Link"
-                    />
-                </Grid>
-                <Grid
-                    item xs={12}
-                    className={classes.fullWidth}
-                >
-                    <TextField
-                        classes={{root: classes.fullWidth}}
-                        variant="outlined"
-                        label="Post body"
-                        multiline
-                        rowsMax={5}
-                    />
-                </Grid>
-                <Grid
-                    item xs={12}
-                    className={classes.fullWidth}
-                >
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        disableRipple
-                        className={classes.marginRight}
-                    >
-                        <span>Post</span>
-                    </Button>
-
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        disableRipple
-                    >
-                        <span>Comment</span>
-                    </Button>
-                </Grid>
-            </Grid>
         </div>
     );
 }

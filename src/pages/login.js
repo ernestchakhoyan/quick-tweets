@@ -1,23 +1,20 @@
 import React from "react";
 import Router from "next/router";
 import {
-    Button,
     CircularProgress,
     Container,
     Grid,
-    TextField,
     Typography
 } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import ReportIcon from "@material-ui/icons/Report";
-import { isAuthorized } from "../utils/tools";
+import TwitterLogin from "react-twitter-login";
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
         height: "calc(100vh - 150px)",
         justifyContent: "center",
         display: "flex",
-        alignItems: "center"
+        marginTop: theme.spacing(2)
     },
     textField: {
         display: "flex",
@@ -28,25 +25,55 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         alignItems: "center"
     },
-    inputRoot: {
-        display: "flex",
-        flexDirection: "column",
-        "& > *": {
-            margin: theme.spacing(1),
-            width: 300,
-        },
-    },
     image: {
         width: 100,
         height: 50
     },
-    loaderContainer: {
+    title: {
+        marginBottom: theme.spacing(2),
+        textAlign: "center"
+    },
+    userContainer: {
         display: "flex",
-        height: "100vh",
         justifyContent: "center",
         alignItems: "center"
+    },
+    username: {
+        color: theme.palette.primary.main
+    },
+    marginBottom: {
+        marginBottom: theme.spacing(2),
     }
 }));
+
+const trustedUsers = [
+    { username: "@Pres_Artsakh", fullName: "Arayik Harutyunyan" },
+    { username: "@arcrunmod", fullName: "Artsrun Hovhannisyan" },
+    { username: "@ShStepanyan", fullName: "Shushan Stepanyan" },
+    { username: "@NikolPashinyan", fullName: "Nikol Pashinyan" },
+    { username: "@AvinyanTigran", fullName: "Tigran Avinyan" },
+    { username: "@naghdalyan", fullName: "Anna A. Naghdalyan" },
+    { username: "@Artak_Beglaryan", fullName: "Artak Beglaryan" },
+    { username: "@atatoyan", fullName: "Arman Tatoyan" },
+    { username: "@ZMnatsakanyan", fullName: "Zohrab Mnatsakanyan" },
+    { username: "@Robbie_Raul", fullName: "Robert Markosyan" },
+    { username: "@mfankr", fullName: "MFA of Artsakh" },
+    { username: "@ArmenianUnified", fullName: "Armenian Unified Infocenter" },
+    { username: "@armgov", fullName: "Goverment of Armenia" },
+    { username: "@armeniamodteam", fullName: "MoD of Armenia" },
+    { username: "@MFAofArmenia", fullName: "MFAofArmenia" },
+    { username: "@Karabakh_MoD", fullName: "MoD of Karabakh" },
+    { username: "@anca_dc", fullName: "ANCA" },
+    { username: "@artsakhpress", fullName: "ArtsakhPress Agency" },
+    { username: "@MediamaxNews", fullName: "MediaMax" },
+    { username: "@PanARMENIAN_eng", fullName: "PAN.am | English" },
+    { username: "@CivilNetTV", fullName: "CIVILNET" },
+    { username: "@evn_report", fullName: "EVN Report" },
+    { username: "@ZartonkMedia", fullName: "Zartonk Media" },
+    { username: "@infocom_am", fullName: "Infocom" },
+    { username: "@armradio", fullName: "Public Radio" },
+    { username: "@a1plusnews", fullName: "A1plus" },
+];
 
 function Index() {
     const classes = useStyles();
@@ -58,11 +85,9 @@ function Index() {
         Router.events.on("routeChangeError", () => setLoading(false));
     }, []);
 
-    React.useEffect(() => {
-        if(isAuthorized()){
-            Router.push("/");
-        }
-    },[])
+    const authHandler = (err, data) => {
+        console.log(err, data);
+    };
 
     return !loading ? (
         <React.Fragment>
@@ -76,36 +101,41 @@ function Index() {
             >
                 <Grid className={classes.gridRoot}>
                     <Typography
-                        variant="h1"
+                        variant="h2"
                         color="primary"
-                        className={classes.textField}
+                        className={classes.title}
                     >
-                        <span style={{ marginRight: 10 }}>Log in</span>
+                        Please authorize in Twitter for automation.
                     </Typography>
-
-
-                    <form className={classes.inputRoot} noValidate autoComplete="off">
-                        <TextField
-                            id="outlined-basic"
-                            label="Username"
-                            variant="outlined"
-                        />
-                        <TextField
-                            id="outlined-basic"
-                            label="Password"
-                            variant="outlined"
-                            type="password"
-                        />
-                    </form>
-
-
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        disableRipple
+                    <Grid
+                        className={`${classes.gridRoot} ${classes.marginBottom }`}
+                        item
+                        xs={12}
+                        md={6}
                     >
-                        <span>Login</span>
-                    </Button>
+                        <TwitterLogin
+                            authCallback={authHandler}
+                            consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
+                            consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
+                            callbackUrl="https://42635b497f80.ngrok.io/twitter"
+                        />
+                    </Grid>
+                    <div
+                        className={`${classes.gridRoot} ${classes.marginBottom}`}
+                    >
+                        {
+                            trustedUsers.map((item) => {
+                                return (
+                                    <div
+                                        key={item.username}
+                                        className={classes.userContainer}
+                                    >
+                                        <span className={classes.username}>{item.username}</span> -  <span>{item.fullName}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </Grid>
             </Container>
         </React.Fragment>

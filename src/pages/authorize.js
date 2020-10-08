@@ -1,11 +1,7 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import { Icon } from "@iconify/react";
-import { Button } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import twitterIcon from "@iconify/icons-mdi/twitter";
-import facebookIcon from "@iconify/icons-mdi/facebook";
+import { Typography, Grid } from "@material-ui/core";
+import TwitterLogin from "react-twitter-login";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
 function Authorize(props) {
     const classes = useStyles();
 
+    const authHandler = (err, data) => {
+        console.log(err, data);
+    };
+
     return (
         <div className={classes.container}>
             <Typography
@@ -59,26 +59,12 @@ function Authorize(props) {
                 xs={12}
                 md={6}
             >
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    disableRipple
-                    className={classes.button}
-                >
-                    <span style={{ marginRight: 10 }}>Log in to Twitter</span>
-                    <Icon icon={twitterIcon} />
-                </Button>
-
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    disableRipple
-                    className={classes.button}
-                >
-                    <span style={{ marginRight: 10 }}>Log in to Facebook</span>
-                    <Icon icon={facebookIcon} />
-                </Button>
-
+                <TwitterLogin
+                    authCallback={authHandler}
+                    consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
+                    consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
+                    callbackUrl="https://42635b497f80.ngrok.io/twitter"
+                />
             </Grid>
         </div>
     );
