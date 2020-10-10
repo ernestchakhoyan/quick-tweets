@@ -17,7 +17,8 @@
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-twitter-login": "^1.2.3"
+    "react-twitter-login": "^1.2.3",
+    "twit": "^2.2.11"
   },
   "devDependencies": {
     "prop-types": "^15.7.2"

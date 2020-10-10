@@ -99,7 +99,7 @@ function Index() {
 
         try{
             axios.post(
-                "https://prod-49.westus.logic.azure.com:443/workflows/a49ce00ad220400d83df1438fdb38d2a/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z2-yHmEYf8q5NSWRvWOjl5KC9bKyN4zOanpVqAkkDTU",
+                "https://socialmediadev.azurewebsites.net/api/tokens?code=hxs7i2AfZP2xbpnVHQ7uWRFTfSawdaeZy6MwmLlYxGQPc7GOA0hbqw==",
                 {
                     "userId": data.user_id,
                     "twitterToken": data.oauth_token,
