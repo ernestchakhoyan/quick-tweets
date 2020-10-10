@@ -1,6 +1,5 @@
 import { shuffle } from "../../utils/array";
 import { TAGS } from "../../constants/tags";
-import { TIME } from "../../constants/times";
 import { Delay } from "../../utils/delay";
 import { USERNAMES } from "../../constants/sources";
 import { initTwit } from "./index";
@@ -17,9 +16,8 @@ export const getTweets = async (username) => {
 
         console.log("GOT  -> ", result.data.length, " TWEETS FROM USER ->", username);
         return result.data.filter(tweet => !tweet.retweeted).map(tweet => ({ id: tweet.id_str, username }));
-    }
-    catch (error){
-        console.log(error, "Error on getting tweets")
+    } catch (error) {
+        console.log(error, "Error on getting tweets");
     }
 };
 
@@ -39,15 +37,18 @@ export async function Retweet(tweet) {
 
 export async function RetweetWithDelay(tweets) {
     for (const tweet of tweets) {
-        const delayTime = shuffle(TIME)[ 0 ];
-        await Delay(3 * 1000);
+        await Delay(3 * 60000);
         await Retweet(tweet);
     }
 }
 
-export async function RunTwitter({access_token, access_token_secret}) {
+export async function RunTwitter({ access_token, access_token_secret }) {
+    if (!access_token || !access_token_secret) {
+        return T = null;
+    }
+
     console.log("Running twitter!!!");
-    T = initTwit({access_token, access_token_secret});
+    T = initTwit({ access_token, access_token_secret });
     const randomizedUsernames = shuffle(USERNAMES);
     for (const username of randomizedUsernames) {
         await Delay(15000);

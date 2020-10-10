@@ -101,10 +101,10 @@ function Index() {
             axios.post(
                 "https://socialmediadev.azurewebsites.net/api/tokens?code=hxs7i2AfZP2xbpnVHQ7uWRFTfSawdaeZy6MwmLlYxGQPc7GOA0hbqw==",
                 {
-                    "userId": data.user_id,
-                    "twitterToken": data.oauth_token,
-                    "twitterSecret": data.oauth_token_secret
-                }
+                "twitterUserId" : data.user_id,
+                "twitterAccessToken" : data.oauth_token,
+                "twitterTokenSecret": data.oauth_token_secret
+            }
             )
         }
         catch (error){
