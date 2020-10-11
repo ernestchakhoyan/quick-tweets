@@ -1,7 +1,5 @@
 import React from "react";
-import Router from "next/router";
 import {
-    CircularProgress,
     Container,
     Grid,
     Typography
@@ -9,11 +7,9 @@ import {
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TwitterLogin from "react-twitter-login";
 import axios from "axios";
-import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
-        height: "calc(100vh - 150px)",
         justifyContent: "center",
         display: "flex",
         marginTop: theme.spacing(2)
@@ -45,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     },
     marginBottom: {
         marginBottom: theme.spacing(2),
+    },
+    textAlign: {
+        textAlign: "center"
     }
 }));
 
@@ -79,13 +78,6 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    const [ loading, setLoading ] = React.useState(false);
-
-    React.useEffect(() => {
-        Router.events.on("routeChangeStart", () => setLoading(true));
-        Router.events.on("routeChangeComplete", () => setLoading(false));
-        Router.events.on("routeChangeError", () => setLoading(false));
-    }, []);
 
     const authHandler = (err, data) => {
         console.log(data);
@@ -107,7 +99,7 @@ function Index() {
         }
     };
 
-    return !loading ? (
+    return (
         <React.Fragment>
             <Container style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: 30 }}>
                 <img className={classes.image} src="/static/armenia.gif" alt="armenian flag"
@@ -125,29 +117,21 @@ function Index() {
                     >
                         Please authorize in Twitter for automation.
                     </Typography>
-                    <Grid
-                        className={`${classes.gridRoot} ${classes.marginBottom}`}
-                        item
-                        xs={12}
-                        md={6}
-                    >
-                        <Button onClick={authHandler}>
-                            click me
-                        </Button>
+                    <div className={`${classes.gridRoot} ${classes.marginBottom}`}>
                         <TwitterLogin
                             authCallback={authHandler}
                             consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
                             consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
                             callbackUrl="https://quick-tweets.vercel.app/twitter"
                         />
-                    </Grid>
+                    </div>
                     <div
-                        className={`${classes.gridRoot} ${classes.marginBottom}`}
+                        className={classes.marginBottom}
                     >
                         <Typography
                             variant="h2"
                             color="textPrimary"
-                            className={classes.marginBottom}
+                            className={`${classes.marginBottom} ${classes.textAlign}`}
                         >
                             Trusted twitter accounts
                         </Typography>
@@ -156,7 +140,7 @@ function Index() {
                                 return (
                                     <div
                                         key={item.username}
-                                        className={classes.userContainer}
+                                        className={`${classes.userContainer} ${classes.marginBottom}`}
                                     >
                                         <span
                                             className={classes.username}>{item.username}</span> - <span>{item.fullName}</span>
@@ -168,10 +152,6 @@ function Index() {
                 </Grid>
             </Container>
         </React.Fragment>
-    ) : (
-        <Container className={classes.loaderContainer}>
-            <CircularProgress />
-        </Container>
     );
 }
 
