@@ -22,7 +22,7 @@ export async function Retweet({ tweetId, tweetUsername }) {
 }
 
 export async function RunTwitter({ access_token, access_token_secret }) {
-    T = initTwit({ access_token, access_token_secret });
+    T = await initTwit({ access_token, access_token_secret });
     return ProfileStream();
 }
 

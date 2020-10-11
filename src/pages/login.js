@@ -80,7 +80,7 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    console.log("666");
+    console.log("777");
 
     const authHandler = async (err, data) => {
 
