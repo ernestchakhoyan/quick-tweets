@@ -79,29 +79,33 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    console.log("1111");
+    console.log("222");
 
-    const authHandler = (err, data) => {
+    const authHandler = async (err, data) => {
 
         if (err || !data) {
             return;
         }
 
         try {
-            axios({
-                method: 'post',
-                url: "api/auto-retweet",
-                data: JSON.stringify({
+            let response = await fetch("https://quick-tweets.vercel.app/api/auto-retweet",{
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({
                     access_token: data.oauth_token,
-                    access_token_secret: data.oauth_token_secret,
-                }),
-                config:{
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }
+                    access_token_secret: data.oauth_token_secret
+                })
             });
+
+            if (response.ok) {
+                let json = await response.json();
+                console.log(json);
+            } else {
+                console.log("HTTP-Error: " + response.status);
+            }
         } catch (error) {
             console.log(error, "Error on twitter authorization");
         }
