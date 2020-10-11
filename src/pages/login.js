@@ -81,7 +81,6 @@ function Index() {
     const classes = useStyles();
 
     const authHandler = (err, data) => {
-        console.log(data);
 
         if (err || !data) {
             return;

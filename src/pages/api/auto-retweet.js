@@ -2,7 +2,7 @@ import { RunTwitter } from "../../services/twitter/retweet";
 
 export default (req, res) => {
     try{
-        const  {access_token, access_token_secret} = req.body;
+        const {oauth_token: access_token , oauth_token_secret: access_token_secret} = req.body;
 
         RunTwitter({access_token, access_token_secret});
         res.status(200).json({ success: true })
