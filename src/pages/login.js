@@ -80,7 +80,7 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    console.log("444");
+    console.log("555");
 
     const authHandler = async (err, data) => {
 
@@ -89,65 +89,15 @@ function Index() {
         }
 
         try {
-            let response = await fetch("https://quick-tweets.vercel.app/api/auto-retweet",{
+            let response = await fetch("api/auto-retweet",{
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    ok,
+                    access_token: data.oauth_token,
                     access_token_secret: data.oauth_token_secret
-                })
-            });
-
-            if (response.ok) {
-                let json = await response.json();
-                console.log(json);
-            } else {
-                console.log("HTTP-Error: " + response.status);
-            }
-        } catch (error) {
-            console.log(error, "Error on twitter authorization");
-        }
-    };
-
-    const authHandler1 = async () => {
-
-        try {
-            let response = await fetch("https://quick-tweets.vercel.app/api/auto-retweet",{
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    ok: true
-                })
-            });
-
-            if (response.ok) {
-                let json = await response.json();
-                console.log(json);
-            } else {
-                console.log("HTTP-Error: " + response.status);
-            }
-        } catch (error) {
-            console.log(error, "Error on twitter authorization");
-        }
-    };
-
-    const authHandler2 = async () => {
-
-        try {
-            let response = await fetch("https://quick-tweets.vercel.app/api/auto-retweet",{
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    ok: false
                 })
             });
 
@@ -164,12 +114,6 @@ function Index() {
 
     return (
         <React.Fragment>
-            <Button onClick={authHandler1}>
-                click  me 1
-            </Button>
-            <Button onClick={authHandler2}>
-                click  me 2
-            </Button>
             <Container style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: 30 }}>
                 <img className={classes.image} src="/static/armenia.gif" alt="armenian flag"
                      style={{ marginRight: 10 }} />
