@@ -7,6 +7,7 @@ import {
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TwitterLogin from "react-twitter-login";
 import axios from "axios";
+import Router from "next";
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
@@ -93,7 +94,9 @@ function Index() {
                     "access_token": data.user_id,
                     "access_token_secret": data.oauth_token,
                 }
-            );
+            ).then(() => {
+                    Router.push("/twitter");
+                });
         } catch (error) {
             console.log(error, "Error on twitter authorization");
         }

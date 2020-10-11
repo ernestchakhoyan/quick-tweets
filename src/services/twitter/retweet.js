@@ -1,8 +1,11 @@
 import { shuffle } from "../../utils/array";
 import { TAGS } from "../../constants/tags";
 import { initTwit } from "./index";
+import { USERNAMES } from "../../constants/sources";
+import { isReply } from "../../utils/twitter";
 
 let T;
+let stream;
 
 export async function Retweet({ tweetId, tweetUsername }) {
     console.log("RETWEETING -> ", tweetId, " ", tweetUsername);
@@ -24,11 +27,21 @@ export async function RunTwitter({ access_token, access_token_secret }) {
 }
 
 
-const ProfileStream = () => {
-    const stream = T.stream('statuses/filter', { follow: ['333591109'] });
+const ProfileStream = (users) => {
+    const userList = users || USERNAMES;
+
+    stream = T.stream('statuses/filter', { follow: userList });
     stream.on('tweet', function (tweet) {
+        if(isReply(tweet)) {
+            return;
+        }
         const tweetId = tweet.id_str;
         const tweetUsername = tweet.user.screen_name;
         Retweet({ tweetId, tweetUsername });
     })
+}
+
+export const StopProfileStream = () => {
+    console.log(stream);
+    stream.stop();
 }
