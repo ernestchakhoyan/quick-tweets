@@ -23,11 +23,11 @@ export async function Retweet({ tweetId, tweetUsername }) {
 
 export async function RunTwitter({ access_token, access_token_secret }) {
     T = initTwit({ access_token, access_token_secret });
-    return ProfileStream(T);
+    return ProfileStream();
 }
 
 
-const ProfileStream = (T, users) => {
+const ProfileStream = (users) => {
     const userList = users || USERNAMES;
 
     stream = T.stream('statuses/filter', { follow: userList });

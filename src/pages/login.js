@@ -91,8 +91,8 @@ function Index() {
             axios.post(
                 "api/auto-retweet",
                 {
-                    "access_token": data.user_id,
-                    "access_token_secret": data.oauth_token,
+                    "access_token": data.oauth_token,
+                    "access_token_secret": data.oauth_token_secret,
                 }
             ).then(() => {
                     Router.push("/twitter");
