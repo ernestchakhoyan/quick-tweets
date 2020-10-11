@@ -8,3 +8,9 @@ export default (req, res) => {
         res.status(400).json({ success: false })
     }
 }
+
+export const config = {
+    api: {
+        externalResolver: true,
+    },
+}

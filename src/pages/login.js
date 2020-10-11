@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import {
     Container,
     Grid,
@@ -8,6 +7,7 @@ import {
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TwitterLogin from "react-twitter-login";
 import Button from "@material-ui/core/Button";
+import { Delay } from "../utils/delay";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -80,7 +80,7 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    console.log("555");
+    console.log("666");
 
     const authHandler = async (err, data) => {
 
@@ -89,6 +89,7 @@ function Index() {
         }
 
         try {
+            await Delay(5000);
             let response = await fetch("api/auto-retweet",{
                 headers: {
                     'Accept': 'application/json',
