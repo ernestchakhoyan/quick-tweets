@@ -79,6 +79,7 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
+    console.log("1111");
 
     const authHandler = (err, data) => {
 
@@ -93,7 +94,13 @@ function Index() {
                 data: JSON.stringify({
                     access_token: data.oauth_token,
                     access_token_secret: data.oauth_token_secret,
-                })
+                }),
+                config:{
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }
             });
         } catch (error) {
             console.log(error, "Error on twitter authorization");
