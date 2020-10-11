@@ -79,7 +79,7 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    console.log("222");
+    console.log("333");
 
     const authHandler = async (err, data) => {
 
@@ -95,7 +95,7 @@ function Index() {
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    access_token: data.oauth_token,
+                    ok: true,
                     access_token_secret: data.oauth_token_secret
                 })
             });
