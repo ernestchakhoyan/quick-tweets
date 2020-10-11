@@ -90,10 +90,10 @@ function Index() {
             axios({
                 method: 'post',
                 url: "api/auto-retweet",
-                data: {
+                data: JSON.stringify({
                     access_token: data.oauth_token,
                     access_token_secret: data.oauth_token_secret,
-                }
+                })
             });
         } catch (error) {
             console.log(error, "Error on twitter authorization");
