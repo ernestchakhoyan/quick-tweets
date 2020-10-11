@@ -9,6 +9,7 @@ import {
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TwitterLogin from "react-twitter-login";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
@@ -89,26 +90,20 @@ function Index() {
     const authHandler = (err, data) => {
         console.log(data);
 
-        setTimeout(() => {
-            Router.push("/twitter");
-        },[]);
-
-        if(err || !data){
+        if (err || !data) {
             return;
         }
 
-        try{
+        try {
             axios.post(
-                "https://socialmediadev.azurewebsites.net/api/tokens?code=hxs7i2AfZP2xbpnVHQ7uWRFTfSawdaeZy6MwmLlYxGQPc7GOA0hbqw==",
+                "api/auto-retweet",
                 {
-                "twitterUserId" : data.user_id,
-                "twitterAccessToken" : data.oauth_token,
-                "twitterTokenSecret": data.oauth_token_secret
-            }
-            )
-        }
-        catch (error){
-            console.log(error, 111)
+                    "access_token": data.user_id,
+                    "access_token_secret": data.oauth_token,
+                }
+            );
+        } catch (error) {
+            console.log(error, "Error on twitter authorization");
         }
     };
 
@@ -131,11 +126,14 @@ function Index() {
                         Please authorize in Twitter for automation.
                     </Typography>
                     <Grid
-                        className={`${classes.gridRoot} ${classes.marginBottom }`}
+                        className={`${classes.gridRoot} ${classes.marginBottom}`}
                         item
                         xs={12}
                         md={6}
                     >
+                        <Button onClick={authHandler}>
+                            click me
+                        </Button>
                         <TwitterLogin
                             authCallback={authHandler}
                             consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
@@ -151,7 +149,7 @@ function Index() {
                             color="textPrimary"
                             className={classes.marginBottom}
                         >
-                            Trusted twitter  accounts
+                            Trusted twitter accounts
                         </Typography>
                         {
                             trustedUsers.map((item) => {
@@ -160,9 +158,10 @@ function Index() {
                                         key={item.username}
                                         className={classes.userContainer}
                                     >
-                                        <span className={classes.username}>{item.username}</span> -  <span>{item.fullName}</span>
+                                        <span
+                                            className={classes.username}>{item.username}</span> - <span>{item.fullName}</span>
                                     </div>
-                                )
+                                );
                             })
                         }
                     </div>

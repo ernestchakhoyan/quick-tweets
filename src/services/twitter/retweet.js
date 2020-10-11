@@ -1,61 +1,34 @@
 import { shuffle } from "../../utils/array";
 import { TAGS } from "../../constants/tags";
-import { Delay } from "../../utils/delay";
-import { USERNAMES } from "../../constants/sources";
 import { initTwit } from "./index";
 
 let T;
 
-export const getTweets = async (username) => {
-    try {
-        const result = await T.get(`statuses/user_timeline`, { screen_name: username, count: 1 });
-        if (!result.data || !(result.data instanceof Array)) {
-            console.log("WRONG RESPONSE: ", result.data);
-            return [];
-        }
-
-        console.log("GOT  -> ", result.data.length, " TWEETS FROM USER ->", username);
-        return result.data.filter(tweet => !tweet.retweeted).map(tweet => ({ id: tweet.id_str, username }));
-    } catch (error) {
-        console.log(error, "Error on getting tweets");
-    }
-};
-
-export async function Retweet(tweet) {
-    console.log("RETWEETING -> ", tweet.id, " ", tweet.username);
+export async function Retweet({ tweetId, tweetUsername }) {
+    console.log("RETWEETING -> ", tweetId, " ", tweetUsername);
     const randomTags = shuffle(TAGS);
     try {
         await T.post("statuses/update", {
             status: randomTags,
-            attachment_url: `https://twitter.com/${tweet.username}/status/${tweet.id}`
+            attachment_url: `https://twitter.com/${tweetUsername}/status/${tweetId}`
         });
     } catch (e) {
         console.log("FAILED To RETWEET -> ", e.message);
     }
-    console.log("DONE RETWEETING -> ", tweet.id, " ", tweet.username, "!!");
-}
-
-export async function RetweetWithDelay(tweets) {
-    for (const tweet of tweets) {
-        await Delay(3 * 60000);
-        await Retweet(tweet);
-    }
+    console.log("DONE RETWEETING -> ", tweetId, " ", tweetUsername, "!!");
 }
 
 export async function RunTwitter({ access_token, access_token_secret }) {
-    if (!access_token || !access_token_secret) {
-        return T = null;
-    }
-
-    console.log("Running twitter!!!");
     T = initTwit({ access_token, access_token_secret });
-    const randomizedUsernames = shuffle(USERNAMES);
-    for (const username of randomizedUsernames) {
-        await Delay(15000);
-        try {
-            await RetweetWithDelay(await getTweets(username));
-        } catch (e) {
-            console.log("FAILED TO GET TWEETS AND RETWEET!!", e);
-        }
-    }
+    return ProfileStream();
+}
+
+
+const ProfileStream = () => {
+    const stream = T.stream('statuses/filter', { follow: ['333591109'] });
+    stream.on('tweet', function (tweet) {
+        const tweetId = tweet.id_str;
+        const tweetUsername = tweet.user.screen_name;
+        Retweet({ tweetId, tweetUsername });
+    })
 }
