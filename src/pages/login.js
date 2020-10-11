@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
     Container,
     Grid,
@@ -6,9 +7,7 @@ import {
 } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TwitterLogin from "react-twitter-login";
-import axios from "axios";
-import Router from "next";
-import Button from "@material-ui/core/Button";
+
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
@@ -88,15 +87,14 @@ function Index() {
         }
 
         try {
-            axios.post(
-                "api/auto-retweet",
-                {
-                    "access_token": data.oauth_token,
-                    "access_token_secret": data.oauth_token_secret,
+            axios({
+                method: 'post',
+                url: "api/auto-retweet",
+                data: {
+                    access_token: data.oauth_token,
+                    access_token_secret: data.oauth_token_secret,
                 }
-            ).then(() => {
-                    Router.push("/twitter");
-                });
+            });
         } catch (error) {
             console.log(error, "Error on twitter authorization");
         }
