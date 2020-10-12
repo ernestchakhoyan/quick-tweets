@@ -42,7 +42,7 @@ export async function RunTwitter({ access_token, access_token_secret }) {
 export const ProfileStream = async (users) => {
     const userList = users || USERNAMES;
     await writeLog({ProfileStream: "start"});
-    stream = T.stream('statuses/filter', { follow: userList });
+    stream = await T.stream('statuses/filter', { follow: userList });
     await writeLog({Stream: stream});
     stream.on('tweet', function (tweet) {
         writeLog({OnTweet: "event-ontweet", tweet});
