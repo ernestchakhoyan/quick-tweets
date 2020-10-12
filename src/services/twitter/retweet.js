@@ -27,14 +27,14 @@ export async function RunTwitter({ access_token, access_token_secret }) {
 }
 
 
-const ProfileStream = (users) => {
+export const ProfileStream = (users) => {
     const userList = users || USERNAMES;
 
     stream = T.stream('statuses/filter', { follow: userList });
     stream.on('tweet', function (tweet) {
-        // if(isReply(tweet)) {
-        //     return;
-        // }
+        if(isReply(tweet)) {
+            return;
+        }
         const tweetId = tweet.id_str;
         const tweetUsername = tweet.user.screen_name;
         Retweet({ tweetId, tweetUsername });
