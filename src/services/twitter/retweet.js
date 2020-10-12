@@ -32,9 +32,9 @@ const ProfileStream = (users) => {
 
     stream = T.stream('statuses/filter', { follow: userList });
     stream.on('tweet', function (tweet) {
-        if(isReply(tweet)) {
-            return;
-        }
+        // if(isReply(tweet)) {
+        //     return;
+        // }
         const tweetId = tweet.id_str;
         const tweetUsername = tweet.user.screen_name;
         Retweet({ tweetId, tweetUsername });
