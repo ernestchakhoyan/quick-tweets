@@ -78,12 +78,14 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    console.log("111");
+    console.log("222");
 
     const authHandler = async (err, data) => {
         if (err || !data) {
             return;
         }
+
+        console.log(data);
 
         try {
             let response = await fetch("api/auto-retweet",{
