@@ -38,7 +38,8 @@ const ProfileStream = (users) => {
         const tweetId = tweet.id_str;
         const tweetUsername = tweet.user.screen_name;
         Retweet({ tweetId, tweetUsername });
-    })
+    });
+    return stream;
 }
 
 export const StopProfileStream = () => {
