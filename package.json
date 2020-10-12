@@ -25,6 +25,6 @@
     "prop-types": "^15.7.2"
   },
   "engines": {
-    "node": "14.x"
+    "node": "12.x"
   }
 }
