@@ -1,4 +1,4 @@
-import { StopProfileStream } from "../../services/twitter/retweet";
+import { StopProfileStream } from "../../socials/twitter/retweet";
 
 export default (req, res) => {
     try{

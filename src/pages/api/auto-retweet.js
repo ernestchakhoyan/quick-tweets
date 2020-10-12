@@ -1,4 +1,4 @@
-import { RunTwitter } from "../../services/twitter/retweet";
+import { RunTwitter } from "../../socials/twitter/retweet";
 
 export default async (req, res) => {
     try {
