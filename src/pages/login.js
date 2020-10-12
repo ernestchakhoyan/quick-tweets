@@ -78,6 +78,7 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
+    console.log("111");
 
     const authHandler = async (err, data) => {
         if (err || !data) {
