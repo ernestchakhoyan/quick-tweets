@@ -23,8 +23,5 @@
   },
   "devDependencies": {
     "prop-types": "^15.7.2"
-  },
-  "engines": {
-    "node": "12.x"
   }
 }
