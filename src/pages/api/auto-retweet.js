@@ -7,7 +7,7 @@ export default async (req, res) => {
         const access_token_secret =  "YWhILwsCs2rSOHvUwpCzt3Z32nFbYW2DYvR4cIWxB7ZTM";
         const a = await RunTwitter({ access_token, access_token_secret });
         console.log(a,"aaa");
-        res.status(200).json({ success: true, stream: a });
+        res.status(200).json({ success: true, stream: a, date: new Date() });
     } catch (error) {
         res.status(400).json({ success: false });
     }
