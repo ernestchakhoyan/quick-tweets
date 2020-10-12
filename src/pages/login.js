@@ -6,8 +6,6 @@ import {
 } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TwitterLogin from "react-twitter-login";
-import Button from "@material-ui/core/Button";
-import { Delay } from "../utils/delay";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -80,16 +78,13 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    console.log("777");
 
     const authHandler = async (err, data) => {
-
         if (err || !data) {
             return;
         }
 
         try {
-            await Delay(5000);
             let response = await fetch("api/auto-retweet",{
                 headers: {
                     'Accept': 'application/json',
@@ -136,7 +131,7 @@ function Index() {
                             authCallback={authHandler}
                             consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
                             consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
-                            callbackUrl="https://quick-tweets.vercel.app/twitter"
+                            callbackUrl="https://quick-tweets.vercel.app/login"
                         />
                     </div>
                     <div
