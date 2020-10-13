@@ -134,7 +134,7 @@ function Index() {
                             authCallback={authHandler}
                             consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
                             consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
-                            callbackUrl="https://quick-tweets.herokuapp.com/twitter"
+                            callbackUrl="https://quick-tweets.herokuapp.com/login"
                         />
                     </div>
                     <div
