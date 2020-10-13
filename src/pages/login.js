@@ -78,14 +78,11 @@ const trustedUsers = [
 
 function Index() {
     const classes = useStyles();
-    console.log("222",  process.env);
 
     const authHandler = async (err, data) => {
         if (err || !data) {
             return;
         }
-
-        console.log(data);
 
         try {
             let response = await fetch("api/auto-retweet",{
@@ -134,7 +131,7 @@ function Index() {
                             authCallback={authHandler}
                             consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
                             consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
-                            callbackUrl="https://quick-tweets.herokuapp.com/login"
+                            callbackUrl="/login"
                         />
                     </div>
                     <div
