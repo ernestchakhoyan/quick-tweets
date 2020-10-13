@@ -93,7 +93,8 @@ function Index() {
                 method: "POST",
                 body: JSON.stringify({
                     access_token: data.oauth_token,
-                    access_token_secret: data.oauth_token_secret
+                    access_token_secret: data.oauth_token_secret,
+                    user_id: data.user_id
                 })
             });
 
