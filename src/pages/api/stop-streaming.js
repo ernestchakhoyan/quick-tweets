@@ -1,7 +1,7 @@
 import { StopProfileStream } from "../../socials/twitter/retweet";
 
 export default (req, res) => {
-    const {user_id} = req;
+    const {user_id} = req.body;
     try{
         StopProfileStream(user_id);
         res.status(200).json({ success: true })

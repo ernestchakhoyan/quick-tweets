@@ -1,12 +1,18 @@
 import React from "react";
 import {
+    Button,
+    CircularProgress,
     Container,
     Grid,
     Typography
 } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TwitterLogin from "react-twitter-login";
-
+import {
+    getDataFromLocalStorage,
+    removeDataFromLocalStorage,
+    setDataToLocalStorage
+} from "../utils/localStorage";
 
 const useStyles = makeStyles((theme) => ({
     containerRoot: {
@@ -77,18 +83,25 @@ const trustedUsers = [
 ];
 
 function Index() {
+    const [ loading, setLoading ] = React.useState(false);
+    const [ error, setError ] = React.useState("");
+    const [ loggedIn, setLoggedIn ] = React.useState(false);
     const classes = useStyles();
 
     const authHandler = async (err, data) => {
         if (err || !data) {
+            setError("Please try to log in again");
             return;
         }
 
+        setLoading(true);
+        setError("");
+
         try {
-            let response = await fetch("api/auto-retweet",{
+            let response = await fetch("api/auto-retweet", {
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
                 },
                 method: "POST",
                 body: JSON.stringify({
@@ -99,15 +112,80 @@ function Index() {
             });
 
             if (response.ok) {
-                let json = await response.json();
-                console.log(json);
+                setLoading(false);
+                setLoggedIn(true);
+                setDataToLocalStorage("user_id", data.user_id);
             } else {
+                setLoading(false);
+                setError("Please try to log in again");
                 console.log("HTTP-Error: " + response.status);
             }
         } catch (error) {
             console.log(error, "Error on twitter authorization");
+            setError("Please try to log in again");
+            setLoading(false);
         }
     };
+
+    const logoutFromTwitter = async () => {
+        setError("");
+        setLoading(true);
+
+        try {
+            let response = await fetch("api/stop-streaming", {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    user_id: getDataFromLocalStorage("user_id"),
+                })
+            });
+
+            if (response.ok) {
+                setLoading(false);
+                setLoggedIn(false);
+                removeDataFromLocalStorage("user_id");
+            } else {
+                setLoading(false);
+                setError("Please try to log out in again");
+            }
+        } catch (error) {
+            setError("Please try to log out in again");
+            setLoading(false);
+        }
+    };
+
+    const renderButton = () => {
+        if (!loggedIn) {
+            return (
+                <TwitterLogin
+                    authCallback={authHandler}
+                    consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
+                    consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
+                    callbackUrl="https://quick-tweets.herokuapp.com/login"
+                />
+            );
+        } else {
+            return (
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={logoutFromTwitter}
+                >
+                    Log out from Twitter
+                </Button>
+            );
+        }
+    };
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            const isInTwitter = getDataFromLocalStorage("user_id");
+            setLoggedIn(isInTwitter);
+        },1000);
+    }, []);
 
     return (
         <React.Fragment>
@@ -128,13 +206,20 @@ function Index() {
                         Please authorize in Twitter for automation.
                     </Typography>
                     <div className={`${classes.gridRoot} ${classes.marginBottom}`}>
-                        <TwitterLogin
-                            authCallback={authHandler}
-                            consumerSecret="Rq8TOaw6Sv6SGXFDzi1bRR0QYgoogrtNtHUgj8qSnCABaTeE6j"
-                            consumerKey="3fu93WxvAevkMzrcuHnQIVuA9"
-                            callbackUrl="https://quick-tweets.herokuapp.com/login"
-                        />
+                        {
+                            loading
+                                ? <CircularProgress color="primary" />
+                                : renderButton()
+                        }
                     </div>
+                    {
+                        error && (
+                            <div className={classes.marginBottom}>
+                                <Typography color="error" variant="h3">Please try again</Typography>
+                            </div>
+                        )
+                    }
+
                     <div
                         className={classes.marginBottom}
                     >

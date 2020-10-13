@@ -50,7 +50,5 @@ export const ProfileStream = async (user_id, users) => {
 export const StopProfileStream = (user_id) => {
     const stream = tweetStorage.getStream(user_id);
 
-    console.log(stream);
-
     stream.stop();
 }
