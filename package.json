@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "TZ=utc next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "TZ=utc next build",
-    "start": "TZ=utc next start"
+    "build": "TZ=utc+4 next build",
+    "start": "TZ=utc+4 next start"
   },
   "dependencies": {
     "@iconify/icons-mdi": "^1.0.139",
