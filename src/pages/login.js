@@ -215,7 +215,7 @@ function Index() {
                     {
                         error && (
                             <div className={classes.marginBottom}>
-                                <Typography color="error" variant="h3">Please try again</Typography>
+                                <Typography color="error" variant="h3">{error}</Typography>
                             </div>
                         )
                     }
