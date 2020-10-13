@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "TZ=utc next dev",
+    "dev": "next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "TZ=utc+4 next build",
-    "start": "TZ=utc+4 next start"
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@iconify/icons-mdi": "^1.0.139",
